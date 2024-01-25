@@ -20,25 +20,28 @@ import Search from "../../public/assets/search.svg";
 import Calendar from "../../public/assets/calendar.svg";
 import Notification from "../../public/assets/notification.svg";
 import PP from "../../public/assets/pp.svg";
-// import { MdOutlineCalendarMonth } from "react-icons/md";
+import { MdOutlineCalendarMonth } from "react-icons/md";
 import NavCon1 from "../../public/assets/NavCon1.svg";
 import NavCon2 from "../../public/assets/NavCon2.svg";
 import NavCon3 from "../../public/assets/NavCon3.svg";
 import NavCon4 from "../../public/assets/NavCon4.svg";
 import NavCon5 from "../../public/assets/NavCon5.svg";
 import NavCon6 from "../../public/assets/NavCon6.svg";
+import Light from "../../public/assets/light.svg";
+import Dark from "../../public/assets/dark.svg";
 
 import { orders } from "@/data";
+import Stat from "@/components/Stat";
 export default function Home() {
   return (
-    <section className="dark:bg-black bg-[#E5EAEF] min-h-screen">
-      <nav className="flex justify-between h-16 border">
+    <section className="dark:bg-black bg-[#E5EAEF] text-black dark:text-white min-h-screen p">
+      <nav className="flex justify-between h-16 border-b border-[#9CA4AB]">
         <div className="flex items-center p-2 gap-3">
           <Image className="" src={logo} alt="logo-icon"></Image>
           <span>Dashboard</span>
         </div>
-        <div className="w-2/3 justify-between items-center flex">
-          <div className="border rounded-full h-fit flex px-2 gap-1 items-center border-[#9CA4AB]">
+        <div className="md:w-2/3 justify-between items-center flex">
+          <div className="border rounded-full h-fit hidden md:flex px-2 gap-1 items-center border-[#9CA4AB]">
             <label htmlFor="search" className="cursor-text">
               <Image className="" src={Search} alt="logo-icon"></Image>
             </label>
@@ -47,16 +50,16 @@ export default function Home() {
               id="search"
               type="text"
               placeholder="Search"
-              className="rounded-full bg-transparent p-1 text-sm dark:bg-black placeholder:bg-transparent border-none outline-none"
+              className="rounded-full bg-transparent p-1 text-sm dark:bg-black  border-none outline-none"
             />
           </div>
 
-          <div className="flex gap-2">
-            {/* <MdOutlineCalendarMonth /> */}
-            <span className="text-sm md:text-base">November 15, 2023</span>
+          <div className="hidden md:flex items-center gap-2">
+            <MdOutlineCalendarMonth size={25} />
+            <span className="text-sm md:text-base ">November 15, 2023</span>
           </div>
           <Image
-            className="bg bg-[#E5EAEF] rounded-full"
+            className="md:block hidden bg-[#E5EAEF] rounded-full"
             src={Notification}
             alt="calendar-icon"
           ></Image>
@@ -70,7 +73,7 @@ export default function Home() {
         </div>
       </nav>
       <section className="flex w-full  ">
-        <aside className=" w-14 border-r border-green-400 flex  items-center flex-col">
+        <aside className=" w-14 border-r border-[#9CA4AB] flex  items-center flex-col">
           <button>
             <Image
               className="pt-0 dark:border dark:w-3/5 dark:rounded-lg dark:mx-auto dark:mt-4 dark:mb-2"
@@ -93,16 +96,26 @@ export default function Home() {
           <button>
             <Image className="pt-4" src={NavCon6} alt="Icon6"></Image>
           </button>
+          <button>
+            <Image className="pt-4" src={Light} alt="light-icon"></Image>
+          </button>
+          <button>
+            <Image className="pt-4" src={Dark} alt="dark-icon"></Image>
+          </button>
         </aside>
-        <main className="flex flex-col w-full gap-4  ">
+        <main className="flex flex-col w-full gap-4  mb-4 pb-10  ">
           <div className=" flex gap-4 flex-col lg:flex-row w-full">
-            <div className="border border-red-500 lg:w-2/3">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero
-              eligendi omnis deleniti eius quos repellat, fuga tempora optio
-              distinctio quaerat.
+            <div className="border border-red-500 lg:w-2/3 px-4 mt-2 ml-2 dark:bg-black bg-white rounded-xl">
+              <div className="flex justify-between">
+                <span>Sales Trends</span>
+                <div>
+                  <span>Sort By</span>
+                </div>
+              </div>
+              <Stat />
             </div>
-            <div className=" lg:w-1/3 grid grid-cols-1 sm:grid-cols-2 gap-4 p-2 text-xs">
-              <div className="dark:bg-black bg-white text-black dark:text-white   border  rounded-xl flex flex-col gap-3 p-2">
+            <div className=" lg:w-1/3 grid grid-cols-1 sm:grid-cols-2 gap-4 px-2 md:px-0 md:pt-2 md:pr-2 text-xs">
+              <div className="dark:bg-black bg-white text-black dark:text-white justify-between   border  rounded-xl flex flex-col gap-3 p-2">
                 <div className="flex justify-between">
                   <Image className="lg:w-8" src={Icon1} alt="view-icon"></Image>
                   <Image
@@ -111,7 +124,7 @@ export default function Home() {
                     alt="view-icon"
                   ></Image>
                 </div>
-                <div className="flex flex-col ">
+                <div className="flex flex-col gap-1 ">
                   <span className="text-[#9CA4AB]">Total Order</span>
                   <span className="font-semibold">350</span>
                 </div>
@@ -125,7 +138,7 @@ export default function Home() {
                   </span>
                 </div>
               </div>
-              <div className="border rounded-xl flex dark:bg-black bg-white text-black dark:text-white   flex-col gap-3 p-2">
+              <div className="border rounded-xl flex dark:bg-black bg-white text-black dark:text-white justify-between   flex-col gap-3 p-2">
                 <div className="flex justify-between">
                   <Image className="lg:w-8" src={Icon2} alt="view-icon"></Image>
                   <Image
@@ -134,7 +147,7 @@ export default function Home() {
                     alt="view-icon"
                   ></Image>
                 </div>
-                <div className="flex flex-col  ">
+                <div className="flex flex-col gap-1  ">
                   <span className="text-[#9CA4AB]">Total Refund</span>
                   <span className="font-semibold">270</span>
                 </div>
@@ -148,7 +161,7 @@ export default function Home() {
                   </span>
                 </div>
               </div>
-              <div className="border rounded-xl flex dark:bg-black bg-white text-black dark:text-white  flex-col gap-3 p-2">
+              <div className="border rounded-xl flex dark:bg-black bg-white text-black dark:text-white justify-between  flex-col gap-3 p-2">
                 <div className="flex justify-between">
                   <Image className="lg:w-8" src={Icon3} alt="view-icon"></Image>
                   <Image
@@ -157,7 +170,7 @@ export default function Home() {
                     alt="view-icon"
                   ></Image>
                 </div>
-                <div className="flex flex-col ">
+                <div className="flex flex-col gap-1 ">
                   <span className="text-[#9CA4AB]">Average Sales </span>
                   <span className="font-semibold">1567</span>
                 </div>
@@ -171,7 +184,7 @@ export default function Home() {
                   </span>
                 </div>
               </div>
-              <div className="border rounded-xl flex dark:bg-black bg-white text-black dark:text-white  flex-col gap-3 p-2">
+              <div className="border rounded-xl flex dark:bg-black bg-white text-black dark:text-white justify-between  flex-col gap-3 p-2">
                 <div className="flex justify-between">
                   <Image className="lg:w-8" src={Icon4} alt="view-icon"></Image>
                   <Image
@@ -180,7 +193,7 @@ export default function Home() {
                     alt="view-icon"
                   ></Image>
                 </div>
-                <div className="flex flex-col ">
+                <div className="flex flex-col gap-1 ">
                   <span className="text-[#9CA4AB]">Total Income </span>
                   <span className="font-semibold">$350.000</span>
                 </div>
@@ -196,7 +209,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className=" flex gap-4  flex-col lg:flex-row ">
+          <div className=" flex flex-col gap-4 lg:flex-row mx-3 ">
             <div className="dark:border border-red-500 px-2 lg:w-2/3 rounded-xl dark:bg-black bg-white text-black dark:text-white ">
               <div className="flex justify-between p-2">
                 <span>Last Orders</span>
@@ -264,8 +277,8 @@ export default function Home() {
                 ))}
               </div>
             </div>
-            <div className="border rounded-xl lg:w-1/3 md:mr-2 md:mb-0 mb-8   ">
-              <div className="mr-2 text-sm dark:bg-black rounded-xl p-4 bg-white text-black dark:text-white">
+            <div className="border rounded-xl lg:w-1/3  md:mb-0   ">
+              <div className=" text-sm dark:bg-black rounded-xl p-4 bg-white text-black dark:text-white">
                 <div className="flex justify-between mb-2 ">
                   <span>Top Platform </span>
                   <button className="text-[#34CAA5]">See All</button>
