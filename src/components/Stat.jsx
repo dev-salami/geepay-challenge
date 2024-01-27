@@ -5,7 +5,7 @@ import Chart from "chart.js/auto";
 
 function Stat() {
   return (
-    <div>
+    <div className="w-full">
       <Bar
         data={{
           labels: [

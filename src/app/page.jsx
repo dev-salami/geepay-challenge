@@ -1,20 +1,6 @@
+"use client";
 import Image from "next/image";
-import view from "../../public/assets/view.svg";
-import Person1 from "../../public/assets/Person1.svg";
-import Person2 from "../../public/assets/Person2.svg";
-import Person3 from "../../public/assets/Person3.svg";
-import Person4 from "../../public/assets/Person4.svg";
-import Person5 from "../../public/assets/Person5.svg";
-import Icon1 from "../../public/assets/Icon1.svg";
-import Icon2 from "../../public/assets/Icon2.svg";
-import Icon3 from "../../public/assets/Icon3.svg";
-import Icon4 from "../../public/assets/Icon4.svg";
-
-import Rise from "../../public/assets/rise.svg";
-import Drop from "../../public/assets/drop.svg";
-
-import Up1 from "../../public/assets/up1.svg";
-import Down1 from "../../public/assets/down1.svg";
+import { CiLight } from "react-icons/ci";
 import logo from "../../public/assets/logo.svg";
 import Search from "../../public/assets/search.svg";
 import Calendar from "../../public/assets/calendar.svg";
@@ -30,17 +16,38 @@ import NavCon6 from "../../public/assets/NavCon6.svg";
 import Light from "../../public/assets/light.svg";
 import Dark from "../../public/assets/dark.svg";
 
-import { orders } from "@/data";
 import Stat from "@/components/Stat";
+import Platform from "@/components/Platform";
+import Orders from "@/components/Orders";
+import Summary from "@/components/Summary";
+import { useState } from "react";
 export default function Home() {
+  const [dark, setDark] = useState(false);
+  const toggleTheme = () => {
+    console.log(dark);
+
+    setDark((prev) => !prev);
+    console.log(dark);
+  };
+  const toggleDark = () => {
+    setDark(true);
+  };
+  const toggleLight = () => {
+    setDark(false);
+  };
   return (
-    <section className="dark:bg-black bg-[#E5EAEF] text-black dark:text-white min-h-screen p">
+    <section
+      className={`${
+        dark && " dark:bg-black dark:text-white"
+      }  bg-[#E5EAEF] text-black  min-h-screen p`}
+    >
       <nav className="flex justify-between h-16 border-b border-[#9CA4AB]">
-        <div className="flex items-center p-2 gap-3">
+        <div className="flex items-center p-2 gap-2">
           <Image className="" src={logo} alt="logo-icon"></Image>
           <span>Dashboard</span>
+          {/* <ToggleSwitch checked={dark} onChange={toggleTheme} /> */}
         </div>
-        <div className="md:w-2/3 justify-between items-center flex">
+        <div className=" gap-4 items-center flex">
           <div className="border rounded-full h-fit hidden md:flex px-2 gap-1 items-center border-[#9CA4AB]">
             <label htmlFor="search" className="cursor-text">
               <Image className="" src={Search} alt="logo-icon"></Image>
@@ -50,20 +57,22 @@ export default function Home() {
               id="search"
               type="text"
               placeholder="Search"
-              className="rounded-full bg-transparent p-1 text-sm dark:bg-black  border-none outline-none"
+              className={`${
+                dark && "dark:bg-black"
+              } rounded-full bg-transparent p-1 text-xs   border-none outline-none`}
             />
           </div>
 
           <div className="hidden md:flex items-center gap-2">
             <MdOutlineCalendarMonth size={25} />
-            <span className="text-sm md:text-base ">November 15, 2023</span>
+            <span className="text-xs md:text-base ">November 15, 2023</span>
           </div>
           <Image
             className="md:block hidden bg-[#E5EAEF] rounded-full"
             src={Notification}
             alt="calendar-icon"
           ></Image>
-          <div className="flex gap-2 text-sm pr-2">
+          <div className="flex gap-2 text-xs pr-2">
             <Image className="" src={PP} alt="profile-pic"></Image>
             <div className="flex flex-col text-end ">
               <span>Justin Bergson</span>
@@ -72,11 +81,57 @@ export default function Home() {
           </div>
         </div>
       </nav>
+      <aside className=" h-14 border-r border-[#9CA4AB] flex sm:hidden justify-around  items-center flex-row">
+        <button>
+          <Image
+            className={`${
+              dark &&
+              "dark:border dark:w-3/5 dark:rounded-lg dark:mx-auto dark:mt-4 dark:mb-2"
+            }  `}
+            src={NavCon1}
+            alt="Icon1"
+          ></Image>
+        </button>
+        <button>
+          <Image className="" src={NavCon2} alt="Icon2"></Image>
+        </button>
+        <button>
+          <Image className="" src={NavCon3} alt="Icon3"></Image>
+        </button>
+        <button>
+          <Image className="" src={NavCon4} alt="Icon4"></Image>
+        </button>
+        <button>
+          <Image className="" src={NavCon5} alt="Icon5"></Image>
+        </button>
+        <button>
+          <Image className="" src={NavCon6} alt="Icon6"></Image>
+        </button>
+        <button onClick={toggleLight}>
+          {!dark ? (
+            <Image className="" src={Light} alt="dark-icon"></Image>
+          ) : (
+            <CiLight size={25} />
+          )}
+        </button>
+        <button
+          onClick={toggleDark}
+          className={`${
+            dark && "bg-[#34CAA5]"
+          }  rounded-full  h-8 w-8 p-1 flex justify-center items-center`}
+        >
+          <Image className="" src={Dark} alt="dark-icon"></Image>
+          {/* <MdDarkMode size={25} /> */}
+        </button>
+      </aside>
       <section className="flex w-full  ">
-        <aside className=" w-14 border-r border-[#9CA4AB] flex  items-center flex-col">
+        <aside className=" w-14 border-r border-[#9CA4AB]  hidden sm:flex  items-center flex-col">
           <button>
             <Image
-              className="pt-0 dark:border dark:w-3/5 dark:rounded-lg dark:mx-auto dark:mt-4 dark:mb-2"
+              className={`${
+                dark &&
+                "dark:border dark:w-3/5 dark:rounded-lg dark:mx-auto dark:mt-4 dark:mb-2"
+              } pt-0 `}
               src={NavCon1}
               alt="Icon1"
             ></Image>
@@ -96,226 +151,55 @@ export default function Home() {
           <button>
             <Image className="pt-4" src={NavCon6} alt="Icon6"></Image>
           </button>
-          <button>
-            <Image className="pt-4" src={Light} alt="light-icon"></Image>
+          <button className="pb-3 pt-1" onClick={toggleLight}>
+            {!dark ? (
+              <Image className="" src={Light} alt="dark-icon"></Image>
+            ) : (
+              <CiLight size={25} />
+            )}
           </button>
-          <button>
-            <Image className="pt-4" src={Dark} alt="dark-icon"></Image>
+          <button
+            onClick={toggleDark}
+            className={`${
+              dark && "bg-[#34CAA5]"
+            }  rounded-full  h-8 w-8 p-1 flex justify-center items-center`}
+          >
+            <Image className="" src={Dark} alt="dark-icon"></Image>
+            {/* <MdDarkMode size={25} /> */}
           </button>
         </aside>
         <main className="flex flex-col w-full gap-4  mb-4 pb-10  ">
           <div className=" flex gap-4 flex-col lg:flex-row w-full">
-            <div className="border border-red-500 lg:w-2/3 px-4 mt-2 ml-2 dark:bg-black bg-white rounded-xl">
-              <div className="flex justify-between">
+            <div
+              className={`${
+                dark && "dark:bg-black "
+              } border border-red-500 lg:w-2/3 px-4 mt-2 mx-2 md:mx-0 md:ml-2  bg-white rounded-xl`}
+            >
+              <div className="flex justify-between pt-3">
                 <span>Sales Trends</span>
-                <div>
+                <div className={`flex gap-2 justify-center items-center `}>
                   <span>Sort By</span>
+                  <select
+                    className={`${
+                      dark && "dark:bg-black dark:text-white"
+                    } rounded-full p-2 border "`}
+                    name="duration"
+                    id="duration"
+                  >
+                    <option value="Weekly">Weekly</option>
+                    <option value="Monthly">Monthly</option>
+                    <option value="Yearly">Yearly</option>
+                  </select>
                 </div>
               </div>
-              <Stat />
+              <Stat dark={dark} />
             </div>
-            <div className=" lg:w-1/3 grid grid-cols-1 sm:grid-cols-2 gap-4 px-2 md:px-0 md:pt-2 md:pr-2 text-xs">
-              <div className="dark:bg-black bg-white text-black dark:text-white justify-between   border  rounded-xl flex flex-col gap-3 p-2">
-                <div className="flex justify-between">
-                  <Image className="lg:w-8" src={Icon1} alt="view-icon"></Image>
-                  <Image
-                    className="lg:w-20 xl:w-24"
-                    src={Rise}
-                    alt="view-icon"
-                  ></Image>
-                </div>
-                <div className="flex flex-col gap-1 ">
-                  <span className="text-[#9CA4AB]">Total Order</span>
-                  <span className="font-semibold">350</span>
-                </div>
-                <div className="flex lg:flex-col xl:flex-row justify-between">
-                  <span className="text-[#34CAA5] flex gap-1">
-                    <Image className="" src={Up1} alt="view-icon"></Image>
-                    <span>23.5%</span>
-                  </span>
-                  <span className="text-[#9CA4AB] pl-1 ">
-                    vs. previous month
-                  </span>
-                </div>
-              </div>
-              <div className="border rounded-xl flex dark:bg-black bg-white text-black dark:text-white justify-between   flex-col gap-3 p-2">
-                <div className="flex justify-between">
-                  <Image className="lg:w-8" src={Icon2} alt="view-icon"></Image>
-                  <Image
-                    className="lg:w-20 xl:w-24"
-                    src={Drop}
-                    alt="view-icon"
-                  ></Image>
-                </div>
-                <div className="flex flex-col gap-1  ">
-                  <span className="text-[#9CA4AB]">Total Refund</span>
-                  <span className="font-semibold">270</span>
-                </div>
-                <div className="flex lg:flex-col xl:flex-row justify-between">
-                  <span className="text-[#ED544E] flex gap-1">
-                    <Image className="" src={Down1} alt="view-icon"></Image>
-                    <span>23.5%</span>
-                  </span>
-                  <span className="text-[#9CA4AB] pl-1 ">
-                    vs. previous month
-                  </span>
-                </div>
-              </div>
-              <div className="border rounded-xl flex dark:bg-black bg-white text-black dark:text-white justify-between  flex-col gap-3 p-2">
-                <div className="flex justify-between">
-                  <Image className="lg:w-8" src={Icon3} alt="view-icon"></Image>
-                  <Image
-                    className="lg:w-20 xl:w-24"
-                    src={Drop}
-                    alt="view-icon"
-                  ></Image>
-                </div>
-                <div className="flex flex-col gap-1 ">
-                  <span className="text-[#9CA4AB]">Average Sales </span>
-                  <span className="font-semibold">1567</span>
-                </div>
-                <div className="flex lg:flex-col xl:flex-row justify-between">
-                  <span className="text-[#ED544E] flex gap-1">
-                    <Image className="" src={Down1} alt="view-icon"></Image>
-                    <span>23.5%</span>
-                  </span>
-                  <span className="text-[#9CA4AB] pl-1 ">
-                    vs. previous month
-                  </span>
-                </div>
-              </div>
-              <div className="border rounded-xl flex dark:bg-black bg-white text-black dark:text-white justify-between  flex-col gap-3 p-2">
-                <div className="flex justify-between">
-                  <Image className="lg:w-8" src={Icon4} alt="view-icon"></Image>
-                  <Image
-                    className="lg:w-20 xl:w-24"
-                    src={Rise}
-                    alt="view-icon"
-                  ></Image>
-                </div>
-                <div className="flex flex-col gap-1 ">
-                  <span className="text-[#9CA4AB]">Total Income </span>
-                  <span className="font-semibold">$350.000</span>
-                </div>
-                <div className="flex lg:flex-col xl:flex-row justify-between">
-                  <span className="text-[#34CAA5] flex gap-1">
-                    <Image className="" src={Up1} alt="view-icon"></Image>
-                    <span>23.5%</span>
-                  </span>
-                  <span className="text-[#9CA4AB] pl-1 ">
-                    vs. previous month
-                  </span>
-                </div>
-              </div>
-            </div>
+            <Summary dark={dark} />
           </div>
           <div className=" flex flex-col gap-4 lg:flex-row mx-3 ">
-            <div className="dark:border border-red-500 px-2 lg:w-2/3 rounded-xl dark:bg-black bg-white text-black dark:text-white ">
-              <div className="flex justify-between p-2">
-                <span>Last Orders</span>
-                <button className="text-[#34CAA5]">See All</button>
-              </div>
-              <div className="text-[#9CA4AB] text-sm hidden justify-between p-2   md:grid   md:grid-cols-6">
-                <span className=" col-start-1 col-span-2">Name</span>
-                <span className="md:inline-block hidden">Date</span>
-                <span className="md:inline-block hidden">Amount</span>
-                <span>Status</span>
-                <span>Invoice</span>
-              </div>
-              <div className="flex flex-col md:gap-2 md:mb-2  font-light px-2 text-xs">
-                {orders.map((order, index) => (
-                  <div key={index}>
-                    <hr />
-                    <div className="  items-center  flex justify-between w-full pt-2    md:grid  md:grid-cols-6">
-                      <div className="flex gap-2 col-start-1 col-span-2  items-center w-1/2 md:w-auto ">
-                        <Image
-                          className="h-6 w-6 rounded-full"
-                          src={require(`../../public/assets/Person${
-                            index + 1
-                          }.svg`)}
-                        ></Image>
-                        <span>{order.name}</span>
-                      </div>
-                      <span className="text-[#9CA4AB] md:inline-block hidden">
-                        {order.date}
-                      </span>
-                      <span className="md:inline-block hidden">
-                        {order.amount}
-                      </span>
-                      <div
-                        className={`${
-                          order.status === "Paid"
-                            ? "text-[#34CAA5]"
-                            : "text-[#ED544E]"
-                        }`}
-                      >
-                        {order.status}
-                      </div>
-                      <span className="md:hidden">{order.amount}</span>
-                      <div className="hidden md:flex gap-2    ">
-                        <Image
-                          className="text-white"
-                          src={view}
-                          alt="view-icon"
-                        ></Image>
-                        <button className="">View</button>
-                      </div>
-                    </div>
-                    <div className="flex md:hidden justify-between py-2">
-                      <span className="text-[#9CA4AB]">{order.date}</span>
-                      {/* <span>{order.amount}</span> */}
-                      <div className="flex gap-2    ">
-                        <Image
-                          className="text-white"
-                          src={view}
-                          alt="view-icon"
-                        ></Image>
-                        <button className="">View</button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <Orders dark={dark} />
             <div className="border rounded-xl lg:w-1/3  md:mb-0   ">
-              <div className=" text-sm dark:bg-black rounded-xl p-4 bg-white text-black dark:text-white">
-                <div className="flex justify-between mb-2 ">
-                  <span>Top Platform </span>
-                  <button className="text-[#34CAA5]">See All</button>
-                </div>
-                <div className="gap-3 flex flex-col">
-                  <div className="flex flex-col gap-2">
-                    <span className="font-medium">Book Bazaar</span>
-                    <div className="w-full h-2 rounded-full  flex items-center bg-[#F5F5F5]">
-                      <div className="w-3/5 h-2 rounded-full bg-[#6160DC]"></div>
-                    </div>
-                    <div className="flex justify-between text-[#9CA4AB]">
-                      <span>$2,500,000</span>
-                      <span>+15%</span>
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <span className="font-medium">Artisan Aisle</span>
-                    <div className="w-full h-2 rounded-full  flex items-center bg-[#F5F5F5]">
-                      <div className="w-2/5 h-2 rounded-full bg-[#54C5EB]"></div>
-                    </div>
-                    <div className="flex justify-between text-[#9CA4AB]">
-                      <span>$1,800,000</span>
-                      <span>+10%</span>
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <span className="font-medium">Toy Troop</span>
-                    <div className="w-full h-2 rounded-full  flex items-center bg-[#F5F5F5]">
-                      <div className="w-1/4 h-2 rounded-full bg-[#FFB74A]"></div>
-                    </div>
-                    <div className="flex justify-between text-[#9CA4AB]">
-                      <span>$1,200,000</span>
-                      <span>+8%</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <Platform dark={dark} />
             </div>
           </div>
         </main>
